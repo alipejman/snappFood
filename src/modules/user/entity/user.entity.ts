@@ -1,5 +1,6 @@
 import { EntityEnum } from "src/common/enums/entity.enum";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AddressEntity } from "./address.entity";
 
 @Entity(EntityEnum.User)
 export class UserEntity {
@@ -23,4 +24,6 @@ export class UserEntity {
     created_at: Date;
     @UpdateDateColumn({type: "time with time zone"})
     updated_at: Date;
+    @OneToMany(() => AddressEntity, address => address.user)
+    addressList: AddressEntity[];
 }

@@ -1,3 +1,4 @@
 export enum EntityEnum {
-    User = "User"
+    User = "User",
+    Address = "Address",
 }

@@ -1,5 +1,5 @@
 export enum EntityEnum {
-    User = "User",
-    Address = "Address",
-    Category = "Category"
+    User = "user",
+    Address = "address",
+    Category = "categories"
 }

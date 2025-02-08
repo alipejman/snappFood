@@ -12,11 +12,11 @@ export function typeOrmConfig() : TypeOrmModuleOptions {
     return {
         type: "mysql",
         host: DB_HOST,
-        port: DB_PORT,
+        port: +DB_PORT,
         username: DB_USER,
         password: DB_PASS,
         database: DB_NAME,
-        autoLoadEntities: false,
+        autoLoadEntities: true,
         synchronize: true,
         entities: [
             "dist/**/**/**/*.entity{.ts, .js}",

@@ -130,4 +130,10 @@ export class CategoryService {
       message: "Category SuccessFully Updated ✅",
     };
   }
+
+  async remove(id: number) {
+    const category = await this.findOneById(id);
+    await this.categoryRepository.delete({id})
+    return CategoryMessage.Deleted;
+  }
 }

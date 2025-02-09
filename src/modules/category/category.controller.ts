@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   FileTypeValidator,
   Get,
   MaxFileSizeValidator,
@@ -69,5 +70,11 @@ export class CategoryController {
     Image: Express.Multer.File
   ) {
     return this.categoryService.update(id, updateCategoryDto, Image)
+  }
+
+  @Delete("/:id")
+  @ApiConsumes(FormType.Urlencoded)
+  remove(@Param("id", ParseIntPipe) id: number) {
+    return this.categoryService.remove(id)
   }
 }

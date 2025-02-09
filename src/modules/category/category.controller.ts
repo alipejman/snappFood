@@ -4,7 +4,10 @@ import {
   FileTypeValidator,
   Get,
   MaxFileSizeValidator,
+  Param,
   ParseFilePipe,
+  ParseIntPipe,
+  Patch,
   Post,
   Query,
   UploadedFile,
@@ -17,6 +20,7 @@ import { CreateCategoryDto } from "./dto/create-category.dto";
 import { FormType } from "src/common/enums/form-types.enum";
 import { paginationDto } from "src/common/dto/pagination.dto";
 import { pagination } from "src/common/decorators/pagination.decorator";
+import { UpdateCategoryDto } from "./dto/update-category.dto";
 
 @Controller("category")
 @ApiTags("Category")
@@ -46,5 +50,24 @@ export class CategoryController {
   @pagination()
   findAll(@Query() paginationDto: paginationDto) {
     return this.categoryService.findAll(paginationDto)
+  }
+
+  @Patch(":id")
+  @UseInterceptors(UploadFileS3("image"))
+  @ApiConsumes(FormType.Multipart)
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({maxSize: 10 * 1024 * 1024}),
+          new FileTypeValidator({fileType: "image/(jpg|png|webp|jpeg)"})
+        ]
+      })
+    )
+    Image: Express.Multer.File
+  ) {
+    return this.categoryService.update(id, updateCategoryDto, Image)
   }
 }

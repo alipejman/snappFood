@@ -29,7 +29,7 @@ export class s3Service {
         // ساخت URL فایل بارگذاری شده
         const url = `https://${process.env.S3_ENDPOINT}/${key}`; // استفاده از endpoint شما
 
-        return { Location: url }; // برگرداندن URL
+        return { Location: url, key: key }; // برگرداندن URL
     }
 
     async DeleteFile(key: string) {

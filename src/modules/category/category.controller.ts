@@ -77,4 +77,11 @@ export class CategoryController {
   remove(@Param("id", ParseIntPipe) id: number) {
     return this.categoryService.remove(id)
   }
+
+
+  @Get("/find-by/:slug")
+  @ApiConsumes(FormType.Urlencoded)
+  findbyslug(@Param("slug") slug: string) {
+    return this.categoryService.findBySlug(slug);
+  }
 }

@@ -23,6 +23,7 @@
     "@aws-sdk/client-s3": "^3.744.0",
     "@nestjs/common": "^11.0.7",
     "@nestjs/core": "^11.0.7",
+    "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-express": "^11.0.7",
     "@nestjs/swagger": "^11.0.3",
     "@nestjs/typeorm": "^11.0.0",

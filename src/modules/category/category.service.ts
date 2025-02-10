@@ -136,4 +136,18 @@ export class CategoryService {
     await this.categoryRepository.delete({id})
     return CategoryMessage.Deleted;
   }
+
+
+  async findBySlug(slug: string) {
+    const category = await this.categoryRepository.findOne({
+        where: {slug},
+        relations: {
+            children: true
+        }
+    })
+    if(!category) throw new NotFoundException(CategoryMessage.NotFound)
+        return {
+            category
+        }
+  }
 }

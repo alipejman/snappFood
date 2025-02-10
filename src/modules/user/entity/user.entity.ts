@@ -1,6 +1,7 @@
 import { EntityEnum } from "src/common/enums/entity.enum";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { AddressEntity } from "./address.entity";
+import { OTPEntity } from "./otp.entity";
 
 @Entity(EntityEnum.User)
 export class UserEntity {
@@ -20,6 +21,13 @@ export class UserEntity {
     score: number;
     @Column({nullable: true})
     agentId: number;
+    @Column({nullable: true})
+    otpId: number;
+    @OneToOne(() => OTPEntity, (otp) => otp.user)
+    @JoinColumn()
+    otp: OTPEntity;
+    @Column({nullable: true, default: false})
+    mobile_verify: boolean;
     @CreateDateColumn()
     created_at: Date;
     @UpdateDateColumn()

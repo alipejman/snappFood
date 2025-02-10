@@ -14,7 +14,7 @@ export class AddressEntity {
     city: string;
     @Column()
     address: string;
-    @Column()
+    @Column({nullable: true})
     postal_code: string;
     @Column()
     userId: number;

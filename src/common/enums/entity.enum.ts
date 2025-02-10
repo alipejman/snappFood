@@ -1,6 +1,6 @@
 export enum EntityEnum {
     User = "user",
-    Address = "address",
-    Category = "categories",
-    UserOtp = "user-otp"
+    UserAddress = "address",
+    UserOtp = "otp",
+    Category = "category",
 }

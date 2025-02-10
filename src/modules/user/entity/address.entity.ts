@@ -2,7 +2,7 @@ import { EntityEnum } from "src/common/enums/entity.enum";
 import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserEntity } from "./user.entity";
 
-@Entity(EntityEnum.Address)
+@Entity(EntityEnum.UserAddress)
 export class AddressEntity {
     @PrimaryGeneratedColumn("increment")
     id: number;
@@ -22,6 +22,4 @@ export class AddressEntity {
     created_at: Date;
     @ManyToOne(() => UserEntity, user => user.addressList, {onDelete: "CASCADE"})
     user: UserEntity;
-
-
 }

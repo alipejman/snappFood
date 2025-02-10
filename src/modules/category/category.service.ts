@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { CreateCategoryDto } from "./dto/create-category.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { categoryEntity } from "./entities/category.entity";
+import { CategoryEntity } from "./entities/category.entity";
 import { DeepPartial, Repository } from "typeorm";
 import { s3Service } from "../s3/s3.service";
 import { CategoryMessage } from "src/common/enums/message.enum";
@@ -21,8 +21,8 @@ import { UpdateCategoryDto } from "./dto/update-category.dto";
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectRepository(categoryEntity)
-    private categoryRepository: Repository<categoryEntity>,
+    @InjectRepository(CategoryEntity)
+    private categoryRepository: Repository<CategoryEntity>,
     private S3service: s3Service
   ) {}
 
@@ -40,7 +40,7 @@ export class CategoryService {
     if (isBoolean(show)) {
       show = toBoolean(show);
     }
-    let parent: categoryEntity = null;
+    let parent: CategoryEntity = null;
     if (parentId && !isNaN(parentId)) {
       parent = await this.findOneById(+parentId);
     }
@@ -98,7 +98,7 @@ export class CategoryService {
   ) {
     const { parentId, show, slug, title } = updateCategoryDto;
     const category = await this.findOneById(id);
-    const updateObject: DeepPartial<categoryEntity> = {};
+    const updateObject: DeepPartial<CategoryEntity> = {};
     if (image) {
       const { Location, key } = await this.S3service.UploadFile(
         image,

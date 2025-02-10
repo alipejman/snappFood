@@ -2,7 +2,7 @@ import { EntityEnum } from "src/common/enums/entity.enum";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity(EntityEnum.Category)
-export class categoryEntity {
+export class CategoryEntity {
     @PrimaryGeneratedColumn("increment")
     id: number;
     @Column()
@@ -17,8 +17,8 @@ export class categoryEntity {
     show: boolean;
     @Column({nullable: true})
     parentId: number;
-    @ManyToOne(() => categoryEntity, category => category.children, {onDelete: "CASCADE"})
-    parent: categoryEntity;
-    @OneToMany(()=> categoryEntity, category => category.parent)
-    children: categoryEntity[];
+    @ManyToOne(() => CategoryEntity, category => category.children, {onDelete: "CASCADE"})
+    parent: CategoryEntity;
+    @OneToMany(()=> CategoryEntity, category => category.parent)
+    children: CategoryEntity[];
 }

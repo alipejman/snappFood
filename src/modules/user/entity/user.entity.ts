@@ -11,9 +11,9 @@ export class UserEntity {
     first_name: string;
     @Column({nullable: true})
     last_name: string;
-    @Column()
+    @Column({unique: true})
     mobile: string;
-    @Column()
+    @Column({nullable: true, unique: true})
     email: string;
     @Column({nullable: true})
     invite_code: string;
@@ -32,6 +32,6 @@ export class UserEntity {
     created_at: Date;
     @UpdateDateColumn()
     updated_at: Date;
-    @OneToMany(() => AddressEntity, address => address.user)
+    @OneToMany(() => AddressEntity, (address) => address.user)
     addressList: AddressEntity[];
 }

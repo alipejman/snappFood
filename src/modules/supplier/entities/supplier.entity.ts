@@ -25,6 +25,8 @@ export class SupplierEntity {
   city: string;
   @Column()
   invite_code: string;
+  @Column({nullable:true, default:false, type: Boolean})
+  mobile_verify: boolean;
   @Column({nullable: true})
   agentId: number;
   @OneToMany(() => SupplierEntity, (supplier) => supplier.agent)

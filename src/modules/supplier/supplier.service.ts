@@ -1,12 +1,14 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { supplierOtpEntity } from './entities/supplier-otp.entity';
 import { Repository } from 'typeorm';
 import { SupplierEntity } from './entities/supplier.entity';
 import { supplierSignUpDto } from './dto/supplier.dto';
-import { SupplierMessage } from 'src/common/enums/message.enum';
+import { AuthMessage, OtpMessage, SupplierMessage } from 'src/common/enums/message.enum';
 import { CategoryService } from '../category/category.service';
 import { randomInt } from 'crypto';
+import { CheckOtpDto, SendOtpDto } from '../auth/dto/otp.dto';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class SupplierService {
@@ -39,11 +41,22 @@ export class SupplierService {
         await this.supplierRepository.save(account);
         await this.createOtpForSupplier(account);
         return {
-            message: "کد یکبار مصرف ارسال شد ✅"
+            message: OtpMessage.Send
         }
 
     }
-
+    
+    async sendOtp(otpDto: SendOtpDto) {
+      const {mobile} = otpDto;
+      let supplier = await this.supplierRepository.findOneBy({phone: mobile});
+      if(!supplier) {
+        throw new NotFoundException(SupplierMessage.NotFound)
+      }
+      await this.createOtpForSupplier(supplier);
+      return {
+        message: OtpMessage.Send
+      }
+    }
 
     async createOtpForSupplier(supplier: SupplierEntity) {
         const expiresIn = new Date(new Date().getTime() + 1000 * 60 * 2);
@@ -68,4 +81,6 @@ export class SupplierService {
         supplier.otpId = otp.id;
         await this.supplierRepository.save(supplier);
       }
+
+
 }

@@ -50,6 +50,7 @@ export class CategoryService {
       image: Location,
       imageKey: key,
       show: true,
+      parentId: parent?.id,
     });
     return {
       message: "category created successfully ... ",

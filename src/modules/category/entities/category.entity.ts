@@ -1,4 +1,5 @@
 import { EntityEnum } from "src/common/enums/entity.enum";
+import { SupplierEntity } from "src/modules/supplier/entities/supplier.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity(EntityEnum.Category)
@@ -21,4 +22,6 @@ export class CategoryEntity {
     parent: CategoryEntity;
     @OneToMany(()=> CategoryEntity, category => category.parent)
     children: CategoryEntity[];
+    @OneToMany(() => SupplierEntity, (supplier) => supplier.category)
+    suppliers: SupplierEntity[];
 }

@@ -3,4 +3,6 @@ export enum EntityEnum {
     UserAddress = "address",
     UserOtp = "otp",
     Category = "category",
+    Supplier = "supplier",
+    SupplierOtp = "supplier-otp"
 }

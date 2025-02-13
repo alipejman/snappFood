@@ -2,6 +2,7 @@ import { EntityEnum } from "src/common/enums/entity.enum";
 import { CategoryEntity } from "src/modules/category/entities/category.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { supplierOtpEntity } from "./supplier-otp.entity";
+import { supplierStatus } from "src/common/enums/supplier.enum";
 
 @Entity(EntityEnum.Supplier)
 export class SupplierEntity {
@@ -23,8 +24,18 @@ export class SupplierEntity {
   category: CategoryEntity;
   @Column()
   city: string;
+  @Column({nullable: true})
+  image: string;
+  @Column({nullable: true})
+  document: string;
   @Column()
   invite_code: string;
+  @Column({nullable: true})
+  national_code: string;
+  @Column({nullable: true})
+  email: string;
+  @Column({nullable: true, default: supplierStatus.Registered})
+  status: string;
   @Column({nullable:true, default:false, type: Boolean})
   mobile_verify: boolean;
   @Column({nullable: true})

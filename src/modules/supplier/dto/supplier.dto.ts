@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsMobilePhone, Length } from "class-validator";
+import { IsEmail, IsIdentityCard, IsMobilePhone, Length } from "class-validator";
 
 export class supplierSignUpDto {
   @ApiProperty()
@@ -20,4 +20,21 @@ export class supplierSignUpDto {
   phone: string;
   @ApiProperty()
   invite_code: string;
+}
+
+
+export class supplimantryInformationDto {
+  @ApiProperty()
+  @IsEmail()
+  email: string;
+  @ApiProperty()
+  @IsIdentityCard("IR")
+  national_code: string;
+}
+
+export class uploadInformDto {
+  @ApiProperty({format: "binary"})
+  acceptedDoc: string;
+  @ApiProperty({format: "binary"})
+  image: string
 }

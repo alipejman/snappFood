@@ -10,6 +10,10 @@ namespace NodeJS {
         DB_PASS: string;
         DB_NAME: string;
 
+        // jwt environment
+        ACCESS_TOKEN_SECRET: string;
+        REFRESH_TOKEN_SECRET: string;
+
         // s3 environment
         S3_ACCESS_KEY_ID: string;
         S3_SECRET_ACCESS_KEY: string;

@@ -2,6 +2,7 @@ import { EntityEnum } from "src/common/enums/entity.enum";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { AddressEntity } from "./address.entity";
 import { OTPEntity } from "./otp.entity";
+import { MenuFeedbackEntity } from "src/modules/menu/entities/feedback.entity";
 
 @Entity(EntityEnum.User)
 export class UserEntity {
@@ -34,4 +35,6 @@ export class UserEntity {
     updated_at: Date;
     @OneToMany(() => AddressEntity, (address) => address.user)
     addressList: AddressEntity[];
+    @OneToMany(() => MenuFeedbackEntity, (feedbacks) => feedbacks.user)
+    feedbacks: MenuFeedbackEntity[];
 }

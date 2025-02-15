@@ -18,7 +18,7 @@ export class supplierSignUpDto {
   @ApiProperty()
   @IsMobilePhone("fa-IR", {}, { message: "mobile number is invalid" })
   phone: string;
-  @ApiProperty()
+  @ApiProperty({nullable: true})
   invite_code: string;
 }
 

@@ -74,10 +74,7 @@ export class SupplierService {
       invite_code: mobileNumber.toString(32).toUpperCase(),
     });
     await this.supplierRepository.save(account);
-    await this.createOtpForSupplier(account);
-    return {
-      message: OtpMessage.Send,
-    };
+    return this.createOtpForSupplier(account);
   }
 
   async sendOtp(otpDto: SendOtpDto) {
@@ -86,10 +83,7 @@ export class SupplierService {
     if (!supplier) {
       throw new NotFoundException(SupplierMessage.NotFound);
     }
-    await this.createOtpForSupplier(supplier);
-    return {
-      message: OtpMessage.Send,
-    };
+    return this.createOtpForSupplier(supplier);
   }
 
   async createOtpForSupplier(supplier: SupplierEntity) {
@@ -114,6 +108,7 @@ export class SupplierService {
     otp = await this.supplierOtpRepository.save(otp);
     supplier.otpId = otp.id;
     await this.supplierRepository.save(supplier);
+    return code;
   }
 
   async checkOtp(checkOtp: CheckOtpDto) {

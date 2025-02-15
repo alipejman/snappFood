@@ -4,5 +4,8 @@ export enum EntityEnum {
     UserOtp = "otp",
     Category = "category",
     Supplier = "supplier",
-    SupplierOtp = "supplier-otp"
+    SupplierOtp = "supplier-otp",
+    MenuType = "type",
+    MenuFeedback= "menu-feedback",
+    Menu = "menu",
 }

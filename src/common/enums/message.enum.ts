@@ -24,4 +24,5 @@ export enum SupplierMessage {
     NotFound = "حساب مورد نظر پیدا نشد ❌",
     NationalCodeUsed = "کد ملی قبلا استفاده شده ❌",
     EmailUsed = "ایمیل مورد نطر از قبل استفاده شده ❌",
+    Uploaded = "اطلاعات مورد نظر با موفقیت آپلود شد ✅"
 }

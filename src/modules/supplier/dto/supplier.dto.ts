@@ -32,7 +32,7 @@ export class supplimantryInformationDto {
   national_code: string;
 }
 
-export class uploadInformDto {
+export class uploadDocsDto {
   @ApiProperty({format: "binary"})
   acceptedDoc: string;
   @ApiProperty({format: "binary"})

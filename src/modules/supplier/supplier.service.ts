@@ -27,6 +27,10 @@ import { documentType } from "./types/documentFile.type";
 import { Request } from "express";
 import { REQUEST } from "@nestjs/core";
 import { supplierStatus } from "src/common/enums/supplier.enum";
+import { MulterField } from "@nestjs/platform-express/multer/interfaces/multer-options.interface";
+import { Type } from "@aws-sdk/client-s3";
+import { request } from "http";
+import { s3Service } from "../s3/s3.service";
 
 @Injectable({scope: Scope.REQUEST})
 export class SupplierService {
@@ -38,6 +42,7 @@ export class SupplierService {
     private categoryService: CategoryService,
     private JwtService: JwtService,
     @Inject(REQUEST) private req: Request,
+    private s3Service: s3Service,
   ) {}
 
   async signUp(supplierSignUpDto: supplierSignUpDto) {
@@ -206,4 +211,21 @@ export class SupplierService {
     }
   }
  
+
+
+
+  async uploadDocs(files: documentType) {
+    const {id} = this.req.user;
+    const {image, acceptedDoc} = files;
+    const supplier = await this.supplierRepository.findOneBy({id});
+    const imageResult = await this.s3Service.UploadFile(image[0], "image");
+    const docResult = await this.s3Service.UploadFile(acceptedDoc[0], "acceptedDoc");
+    if(imageResult) supplier.image = imageResult.Location;
+    if(docResult) supplier.document = docResult.Location;
+    supplier.status = supplierStatus.UploadedDocument;
+    await this.supplierRepository.save(supplier);
+    return {
+      message: SupplierMessage.Uploaded
+    } 
+  }
 }

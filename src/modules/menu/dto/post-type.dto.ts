@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsNumber, IsString, Length } from "class-validator";
 
 export class PostTypeDto {
@@ -10,3 +10,6 @@ export class PostTypeDto {
     @IsNumber()
     priority: number;
 }
+
+
+export class UpdateTypeDto extends PartialType(PostTypeDto) {}

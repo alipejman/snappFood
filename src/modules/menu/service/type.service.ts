@@ -1,12 +1,11 @@
 import { Inject, Injectable, NotFoundException, Scope } from "@nestjs/common";
-import { PostTypeDto } from "../dto/post-type.dto";
+import { PostTypeDto, UpdateTypeDto } from "../dto/post-type.dto";
 import { REQUEST } from "@nestjs/core";
 import { Request } from "express";
 import { InjectRepository } from "@nestjs/typeorm";
 import { typeEntity } from "../entities/type.entity";
 import { Repository } from "typeorm";
 import { TypeMessage } from "src/common/enums/message.enum";
-import { UpdateTypeDto } from "../dto/update-menu.dto";
 
 @Injectable({scope: Scope.REQUEST})
 export class typeService {

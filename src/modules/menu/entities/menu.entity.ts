@@ -25,6 +25,8 @@ export class MenuEntity {
     score: number;
     @Column()
     typeId: number;
+    @Column()
+    supplierId: number;
     @ManyToOne(() => typeEntity, (type) => type.items)
     type: typeEntity;
     @OneToMany(() => MenuFeedbackEntity, (feedbacks) => feedbacks.food)

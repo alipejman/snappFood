@@ -3,8 +3,7 @@ import { ApiConsumes, ApiTags } from "@nestjs/swagger";
 import { SupplierAuth } from "src/common/decorators/auth.decorator";
 import { FormType } from "src/common/enums/form-types.enum";
 import { typeService } from "../service/type.service";
-import { PostTypeDto } from "../dto/post-type.dto";
-import { UpdateTypeDto } from "../dto/update-menu.dto";
+import { PostTypeDto, UpdateTypeDto } from "../dto/post-type.dto";
 
 @Controller('type')
 @ApiTags('Type')

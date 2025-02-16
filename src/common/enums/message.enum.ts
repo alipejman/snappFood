@@ -33,3 +33,7 @@ export enum TypeMessage {
     Delete = "تایپ مورد نظر با موفقیت حذف گردید ✅",
     Updated = "تایپ مورد نظر با موفقیت بروزرسانی شد✅"
 }
+
+export enum MenuMessage {
+    created = "منو شما با موفقیت اضافه شد ✅"
+}

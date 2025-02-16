@@ -29,5 +29,7 @@ export enum SupplierMessage {
 
 export enum TypeMessage {
     Post = "تایپ با موفقیت ایجاد شد ✅",
-    NotFound = "تایپ مورد نظر پیدا نشد ❌"
+    NotFound = "تایپ مورد نظر پیدا نشد ❌",
+    Delete = "تایپ مورد نظر با موفقیت حذف گردید ✅",
+    Updated = "تایپ مورد نظر با موفقیت بروزرسانی شد✅"
 }

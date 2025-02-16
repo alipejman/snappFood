@@ -6,6 +6,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { typeEntity } from "../entities/type.entity";
 import { Repository } from "typeorm";
 import { TypeMessage } from "src/common/enums/message.enum";
+import { UpdateTypeDto } from "../dto/update-menu.dto";
 
 @Injectable({scope: Scope.REQUEST})
 export class typeService {
@@ -43,5 +44,24 @@ export class typeService {
         const type = await this.typeRepository.findOneBy({id, supplierId});
         if(!type) throw new NotFoundException(TypeMessage.NotFound);
         return type;
+    }
+
+    async remove(id: number) {
+        const type = this.findOneById(id);
+        await this.typeRepository.delete({id});
+        return {
+            message: TypeMessage.Delete
+        }
+    }
+
+    async update(id: number, updateTypeDto: UpdateTypeDto) {
+        const type = await this.findOneById(id);
+        const {priority, title} = updateTypeDto;
+        if(title) type.title = title;
+        if(priority) type.priority = priority;
+        await this.typeRepository.save(type);
+        return {
+            message: TypeMessage.Updated
+        }
     }
 }

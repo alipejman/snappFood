@@ -26,3 +26,8 @@ export enum SupplierMessage {
     EmailUsed = "ایمیل مورد نطر از قبل استفاده شده ❌",
     Uploaded = "اطلاعات مورد نظر با موفقیت آپلود شد ✅"
 }
+
+export enum TypeMessage {
+    Post = "تایپ با موفقیت ایجاد شد ✅",
+    NotFound = "تایپ مورد نظر پیدا نشد ❌"
+}

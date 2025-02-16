@@ -9,6 +9,22 @@ export class MenuEntity {
     id: number;
     @Column()
     name: string;
+    @Column()
+    image: string;
+    @Column()
+    key: string;
+    @Column({ default: true })
+    is_active: boolean;
+    @Column({type: "double"})
+    price: number;
+    @Column({type: "double", default: 0})
+    discount: number;
+    @Column()
+    description: string;
+    @Column({type: "double", default: 0})
+    score: number;
+    @Column()
+    typeId: number;
     @ManyToOne(() => typeEntity, (type) => type.items)
     type: typeEntity;
     @OneToMany(() => MenuFeedbackEntity, (feedbacks) => feedbacks.food)

@@ -3,6 +3,8 @@ import { CategoryEntity } from "src/modules/category/entities/category.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { supplierOtpEntity } from "./supplier-otp.entity";
 import { supplierStatus } from "src/common/enums/supplier.enum";
+import { MenuEntity } from "src/modules/menu/entities/menu.entity";
+import { typeEntity } from "src/modules/menu/entities/type.entity";
 
 @Entity(EntityEnum.Supplier)
 export class SupplierEntity {
@@ -49,4 +51,6 @@ export class SupplierEntity {
   @OneToOne(() => supplierOtpEntity, (otp) => otp.supplier)
   @JoinColumn()
   otp: supplierOtpEntity;
+  @OneToMany(() => typeEntity, (type) => type.supplier)
+  menuType: typeEntity[]
 }

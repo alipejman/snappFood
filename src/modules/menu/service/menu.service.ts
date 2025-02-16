@@ -1,4 +1,4 @@
-import { Inject, Injectable, Scope } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { PostFoodDto, UpdateFoodDto } from '../dto/post-food.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MenuEntity } from '../entities/menu.entity';
@@ -8,12 +8,16 @@ import { Request } from 'express';
 import { typeService } from './type.service';
 import { s3Service } from 'src/modules/s3/s3.service';
 import { MenuMessage } from 'src/common/enums/message.enum';
+import { NotFound } from '@aws-sdk/client-s3';
+import { NotFoundError } from 'rxjs';
+import { typeEntity } from '../entities/type.entity';
 
 @Injectable({scope: Scope.REQUEST})
 export class MenuService {
   constructor(
     @Inject(REQUEST) private req: Request,
     @InjectRepository(MenuEntity) private menuRepository: Repository<MenuEntity>,
+    @InjectRepository(typeEntity) private typeRepositort: Repository<typeEntity>,
     private typeservice: typeService,
     private s3Service: s3Service,
   ) {}
@@ -40,19 +44,49 @@ export class MenuService {
     }
   }
 
-  findAll() {
-    return `This action returns all menu`;
+   findAll(supplierId: number) {
+    return this.typeRepositort.find({
+      where: {supplierId},
+      relations: {
+        items: true,
+      }
+    });
   }
 
-  findOneById(id: number) {
-    return `This action returns a #${id} menu`;
+  async findOneById(id: number) {
+    const food = await this.menuRepository.findOneBy({id});
+    if(!food) throw new NotFoundException(MenuMessage.NotFound);
+    return food;
   }
 
-  update(id: number, updateMenuDto: UpdateFoodDto) {
-    return `This action updates a #${id} menu`;
+  async update(id: number, updateFoodDto: UpdateFoodDto, image: Express.Multer.File) {
+    const {id: supplierId} = this.req.user;
+    const food = await this.findOneById(id);
+    if(food.supplierId !== supplierId) {
+      throw new NotFoundException(MenuMessage.NotFound);
+    }
+    const {description, discount, name, price, typeId} = updateFoodDto;
+    if(description) food.description = description;
+    if(discount) food.discount = discount;
+    if(name) food.name = name;
+    if(price) food.price = price;
+    if(typeId) food.typeId = typeId
+    if(image) {
+      const {Location, key} = await this.s3Service.UploadFile(image, "menu-item");
+      food.image = Location;
+      food.key = key
+    }
+    await this.menuRepository.save(food);
+    return {
+      message: MenuMessage.Updated
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} menu`;
+  async remove(id: number) {
+    const food = await this.findOneById(id);
+    await this.menuRepository.delete({id});
+    return {
+      message: MenuMessage.Deleted
+    }
   }
 }

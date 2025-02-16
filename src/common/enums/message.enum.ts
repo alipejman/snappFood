@@ -35,5 +35,8 @@ export enum TypeMessage {
 }
 
 export enum MenuMessage {
-    created = "منو شما با موفقیت اضافه شد ✅"
+    created = "منو شما با موفقیت اضافه شد ✅",
+    NotFound= "غذای مورد نظر شما پیدا نشد ❌",
+    Deleted = "غذای مورد نظر با موفقیت حذف شد ✅",
+    Updated = "غذای مورد نظر بروزرسانی شد ✅"
 }

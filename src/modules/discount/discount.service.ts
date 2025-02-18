@@ -1,26 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDiscountDto } from './dto/create-discount.dto';
 import { UpdateDiscountDto } from './dto/update-discount.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DiscountEntity } from './entities/discount.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DiscountService {
-  create(createDiscountDto: CreateDiscountDto) {
-    return 'This action adds a new discount';
-  }
+constructor(
+  @InjectRepository(DiscountEntity) private discountRepository: Repository<DiscountEntity>,
+) {}
 
-  findAll() {
-    return `This action returns all discount`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} discount`;
-  }
-
-  update(id: number, updateDiscountDto: UpdateDiscountDto) {
-    return `This action updates a #${id} discount`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} discount`;
-  }
+async findOneByCode(code:string) {
+  const discount = await this.discountRepository.findOneBy({code: code});
+  if(!discount) throw new NotFoundException("Discount Code Is Not Working.")
+    return discount;
+}
 }

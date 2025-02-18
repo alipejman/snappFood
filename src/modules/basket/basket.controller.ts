@@ -3,7 +3,7 @@ import { BasketService } from './basket.service';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { UserAuth } from 'src/common/decorators/auth.decorator';
 import { FormType } from 'src/common/enums/form-types.enum';
-import { BasketDto } from './dto/basket.dto';
+import { BasketDto, discountBasketDto } from './dto/basket.dto';
 
 @Controller('basket')
 @ApiTags("Basket")
@@ -22,14 +22,14 @@ export class BasketController {
     return this.basketService.getBasket();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.basketService.findOne(+id);
+  @Post('/discount')
+  addDiscount(@Body() discountDto: discountBasketDto) {
+    return this.basketService.addDiscount(discountDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBasketDto:any) {
-    return this.basketService.update(+id, updateBasketDto);
+  @Delete("/discount")
+  removeDiscount(@Body() discountDto: discountBasketDto) {
+    return this.basketService.removeDiscount(discountDto);
   }
 
   @Delete()

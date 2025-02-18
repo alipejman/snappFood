@@ -31,10 +31,7 @@ export class AuthService {
       });
       user = await this.userRepository.save(user);
     }
-    await this.createOtpForUser(user);
-    return {
-      message: "sent code successfully",
-    };
+    return await this.createOtpForUser(user);
   }
   async checkOtp(otpDto: CheckOtpDto) {
     const {code, mobile} = otpDto;
@@ -97,6 +94,9 @@ export class AuthService {
     otp = await this.otpRepository.save(otp);
     user.otpId = otp.id;
     await this.userRepository.save(user);
+    return {
+      code
+    }
   }
   makeTokensForUser(payload: PayloadType) {
     const accessToken = this.jwtService.sign(payload, {

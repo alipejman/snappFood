@@ -53,4 +53,6 @@ export class SupplierEntity {
   otp: supplierOtpEntity;
   @OneToMany(() => typeEntity, (type) => type.supplier)
   menuType: typeEntity[]
+  @OneToMany(() => MenuEntity, (food) => food.supplier)
+  food: MenuEntity[]
 }

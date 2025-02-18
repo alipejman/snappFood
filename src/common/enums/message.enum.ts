@@ -40,3 +40,9 @@ export enum MenuMessage {
     Deleted = "غذای مورد نظر با موفقیت حذف شد ✅",
     Updated = "غذای مورد نظر بروزرسانی شد ✅"
 }
+
+export enum BasketMessage {
+    NotFound = "آیتم مورد نظر پیدا نشد ❌",
+    Added = "آینم مورد نظر با موفقیت اضافه شد ✅",
+    Deleted = "محصول از سبد خرید حذف شد ✅"
+}

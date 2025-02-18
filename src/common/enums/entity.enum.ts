@@ -8,4 +8,6 @@ export enum EntityEnum {
     MenuType = "type",
     MenuFeedback= "menu-feedback",
     Menu = "menu",
+    UserBasket = "user-basket",
+    Discount= "discount"
 }

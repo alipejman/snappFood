@@ -3,6 +3,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, Prim
 import { AddressEntity } from "./address.entity";
 import { OTPEntity } from "./otp.entity";
 import { MenuFeedbackEntity } from "src/modules/menu/entities/feedback.entity";
+import { BasketEntity } from "src/modules/basket/entities/basket.entity";
 
 @Entity(EntityEnum.User)
 export class UserEntity {
@@ -37,4 +38,6 @@ export class UserEntity {
     addressList: AddressEntity[];
     @OneToMany(() => MenuFeedbackEntity, (feedbacks) => feedbacks.user)
     feedbacks: MenuFeedbackEntity[];
+    @OneToMany(() => BasketEntity, (basket) => basket.user)
+    basket: BasketEntity[];
 }

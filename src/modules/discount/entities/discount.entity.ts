@@ -16,7 +16,7 @@ export class DiscountEntity {
     expires_in: Date;
     @Column()
     limit: number;
-    @Column()
+    @Column({nullable: true, default: 0})
     usage: number;
     @Column({nullable: true})
     supplierId: number;
